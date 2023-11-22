@@ -6,12 +6,14 @@
 -- installing libcurl via VCPKG.
 --
 
--- libzip C++ Project
+-- libzip C Project
 project "LibZip"
-	kind "StaticLib"
-	language "C"
-	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
-	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
+	kind          "StaticLib"
+	language      "C"
+	cppdialect    "C++17"
+	staticruntime "On"
+	targetdir     ("%{ForceDir.BinLib}/" .. BuildDir .. "/%{prj.name}/lib")
+	objdir        ("%{ForceDir.BinLib}/" .. BuildDir .. "/%{prj.name}/obj")
 
 	files {
 		"src/zip_add.c",
@@ -139,8 +141,7 @@ project "LibZip"
 	}
 	
 	includedirs {
-		"include",
-		"src"
+		"include"
 	}
 	
 	defines {
@@ -153,8 +154,6 @@ project "LibZip"
 
 	filter "system:windows"
 		systemversion "latest"
-		cppdialect "C++17"
-		staticruntime "On"
 		
 		files {
 			"include/zip_source_file_win32.h",
@@ -171,7 +170,6 @@ project "LibZip"
 	filter "system:linux"
 		pic "On"
 		systemversion "latest"
-		staticruntime "On"
 
 	filter "configurations:Debug"
 		runtime "Debug"
