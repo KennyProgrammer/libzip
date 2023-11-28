@@ -2,8 +2,9 @@
 -- Main Premake5 file for building ziplib project.
 -- Copyright (c) 2023 by Danil (Kenny) Dukhovenko, All rights reserved.
 -- 
--- NOTE: For this library requires zlib library. This library can be installed by
--- installing libcurl via VCPKG.
+-- Requirement:
+--  - ForceEngine.lua
+--  - zlib installed (via VCPKG)
 --
 
 -- libzip C Project
@@ -12,8 +13,8 @@ project "LibZip"
 	language      "C"
 	cppdialect    "C++17"
 	staticruntime "On"
-	targetdir     ("%{ForceDir.BinLib}/" .. BuildDir .. "/%{prj.name}/lib")
-	objdir        ("%{ForceDir.BinLib}/" .. BuildDir .. "/%{prj.name}/obj")
+	targetdir     ("%{ForceDir.BinLib}/" .. BuildDir .. "/%{prj.name}/Lib")
+	objdir        ("%{ForceDir.BinLib}/" .. BuildDir .. "/%{prj.name}/Obj")
 
 	files {
 		"src/zip_add.c",
@@ -141,7 +142,10 @@ project "LibZip"
 	}
 	
 	includedirs {
-		"include"
+		"include",
+		
+		-- Zlib
+		"%{IncludeDir.ZLib}"
 	}
 	
 	defines {
