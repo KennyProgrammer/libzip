@@ -178,7 +178,9 @@ project "LibZip"
 	filter "configurations:Debug"
 		runtime "Debug"
 		symbols "on"
+		links ( "%{Library.Dbg.ZLib}" )
 
 	filter "configurations:Release"
 		runtime "Release"
 		optimize "on"
+		links ( "%{Library.Rel.ZLib}" )
